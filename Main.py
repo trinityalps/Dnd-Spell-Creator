@@ -80,7 +80,8 @@ transmutation = School(
     "School-T.png", (260-i, 260-i), (690, 700-i), (1245, 260-i), (1245, 1245), (260-i, 1245))
 
 L = []
-with open('D:/Admin/Downloads/dnd_5e_spells.csv', newline='') as csvfile:
+SpellCSVLocation = 'C:/path'
+with open(SpellCSVLocation, newline='') as csvfile:
     spamreader = csv.DictReader(csvfile)
     for row in spamreader:
         school = row['School']
