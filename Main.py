@@ -8,7 +8,7 @@ from PIL import ImageFont
 from PIL import ImageDraw
 import time
 
-
+#Cause roman numerals look more magic.
 def write_roman(num):
 
     roman = OrderedDict()
@@ -38,7 +38,7 @@ def write_roman(num):
 
     return "".join([a for a in roman_num(num)])
 
-
+#Defines components of a spell.
 class Spell:
     def __init__(self, name, level, casttime, duration, com, rng, school):
         self.name = name
@@ -49,7 +49,7 @@ class Spell:
         self.rng = rng
         self.school = school
 
-
+#Basically where to place the various spell elements in each picture.
 class School:
     def __init__(self, image, point1, point2, point3, point4, point5):
         self.image = image
@@ -59,10 +59,11 @@ class School:
         self.point4 = point4
         self.point5 = point5
 
-
+#Each element is around 175*175 pixels
 i = 175
 j = 87
-#rangepic, scho.point4, (durpic, scho.point3)castpic, scho.point1)(levelpic, scho.point)(compic, scho.point5)
+#This is the awful function that places each element in the pictures. Yep it's rough....
+#(rangepic, scho.point4), (durpic, scho.point3)castpic, scho.point1)(levelpic, scho.point)(compic, scho.point5)
 abjuration = School("School-A.png", (75, 3), (1255, 73), (1255, 650), (0, 650), (668, 1325))
 conjuration = School(
     "School-C.png", (250-i, 650-i), (755-j, 290-i), (1250, 650-i), (1050, 1225), (440-i, 1225))
@@ -80,7 +81,10 @@ transmutation = School(
     "School-T.png", (260-i, 260-i), (690, 700-i), (1245, 260-i), (1245, 1245), (260-i, 1245))
 
 L = []
+
+#Where the spellbook csv is located on the disk
 SpellCSVLocation = 'C:/path'
+#Rows needed Name, School, Level, Cast_Time, Duration, Components, Range
 with open(SpellCSVLocation, newline='') as csvfile:
     spamreader = csv.DictReader(csvfile)
     for row in spamreader:
@@ -98,7 +102,8 @@ gc.enable()
 for s in L:
     gc.collect()
     scho = 0
-
+    
+#Picking the image corresponding to the school of magic
     if 'Necromancy' in s.school:
         scho = necromancy
     elif 'Abjuration' in s.school:
@@ -128,7 +133,7 @@ for s in L:
     print(rangepic)
 
     #region Range
-    # Nothing for line cone or cube
+    #Sets the range pick and adds text if there is a distance measure.
     if 'Self' in s.rng:
         if 'radius' in s.rng:
             rangepic = Image.open('Range-R.png')
@@ -310,19 +315,9 @@ for s in L:
     image_copy.paste(levelpic, scho.point2, levelpic)
     levelpic.close()
     #endregion
-    imgpath = 'D:/Admin/Documents/Miscellanous/Spellbooksymbols/output/' + s.name + '.png'
+    #The files are saved as the spell name, so for instance Aid.png
+    imgpath = 'C:/output/' + s.name + '.png'
     image_copy.save(imgpath)
     image_copy.close()
     gc.collect()
 
-    #image_copy = scho.image
-   # image_copy.paste(rangepic, scho.point4, rangepic)
-   # image_copy.paste(durpic, scho.point3, durpic)
-   # image_copy.paste(castpic, scho.point1, castpic)
-  #  image_copy.paste(levelpic, scho.point2, levelpic)
- #   image_copy.paste(compic, scho.point5, compic)
- #   imgpath = 'D:/Admin/Documents/Miscellanous/Spellbooksymbols/output/' + s.name + '.png'
- #   image_copy.save(imgpath)
-   # print(rangepic)
-  #  del rangepic, durpic, castpic, levelpic, compic, scho, image_copy
-    #gc.collect()
