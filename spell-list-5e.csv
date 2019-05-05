@@ -1,0 +1,7 @@
+Name,Level,School,Cast_Time,Range,Components,Duration
+Acid Splash,0,Conjuration,1 action,60 feet,"V, S",Instantaneous
+Aid,2,Abjuration,1 action,30 feet,"V, S, M",8 hours
+Alarm,1,Abjuration,1 minute,30 feet,"V, S, M",8 hours
+Alter Self,2,Transmutation,1 action,Self,"V, S","Concentration, up to 1 hour"
+Animal Friendship,1,Enchantment,1 action,30 feet,"V, S, M",24 hours
+Animal Messenger,2,Enchantment,1 action,30 feet,"V, S, M",24 hours
